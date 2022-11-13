@@ -28,10 +28,8 @@ def main(args):
     input_contents = int(file_contents(args.input))
     if args.encrypt:
         write_file(str(encrypt(input_contents, e, n)), args.output)
-        print("File Encrypted")
     elif args.decrypt:
         write_file(str(decrypt(input_contents, d, n)), args.output)
-        print("File Decrypted")
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()

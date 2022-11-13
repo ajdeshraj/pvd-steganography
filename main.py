@@ -17,14 +17,18 @@ if __name__ == "__main__":
     if args.embed:
         # Encrypting all text files containing patient data using RSA
         src_dir = Path("./embedding")
-        for fp in src_dir.iterdir():
+        print("Encrypting secrets...")
+        for idx, fp in enumerate(src_dir.iterdir()):
+            print(f"\r{idx}", end="")
             if fp.name.endswith(".txt") and not fp.name.startswith("encrypted"):
                 out_fp = src_dir /f"encrypted_{fp.name}"
                 rsa_args =argparse.Namespace(encrypt = True, input = fp, output = out_fp, decrypt = False)
                 RSA_main(rsa_args)
         # Embedding encrypted text into images
         dest_dir = Path("./embedding/output")
-        for fp in src_dir.iterdir():
+        print("\rEmbedding secret in images...")
+        for idx, fp in enumerate(src_dir.iterdir()):
+            print(f"\r{idx}", end="")
             if fp.name.endswith(".png"):
                 out_fp = dest_dir /f"embedded_{fp.name}"
                 encryted_msg_fp = src_dir / f"encrypted_{fp.name.replace('.png', '.txt')}"
@@ -35,14 +39,18 @@ if __name__ == "__main__":
         # Extracting encrypted text into images
         src_dir = Path("./extraction")
         dest_dir = Path("./extraction/output")
-        for fp in src_dir.iterdir():
+        print("Extracting secret from images...")
+        for idx, fp in enumerate(src_dir.iterdir()):
+            print(f"\r{idx}", end="")
             if fp.name.endswith(".png") and not fp.name.startswith("embedded"):
                 embed_fp = src_dir /f"embedded_{fp.name}"
                 embed_message_fp = dest_dir/ f"encrypted_{fp.name.replace('.png','.txt')}"
                 pvd_args = argparse.Namespace(embed = False, ref = fp, inimage = embed_fp, outmessage = embed_message_fp, extract = True)
                 PVD_main(pvd_args)
         # Decrypting all text files containing patient data using RSA
-        for fp in dest_dir.iterdir():
+        print("\rDecrypting secrets...")
+        for idx, fp in enumerate(dest_dir.iterdir()):
+            print(f"\r{idx}", end="")
             if fp.name.endswith(".txt") and fp.name.startswith("encrypted"):
                 out_fp = dest_dir /f"decrypted_{fp.name.replace('encrypted_','')}"
                 rsa_args =argparse.Namespace(encrypt = False, input = fp, output = out_fp, decrypt = True)
