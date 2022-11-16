@@ -10,7 +10,7 @@ PVD_BYTES_TO_BITS = 8
 PVD_BYTE_ORDER = 'big'
 
 """
-This class implements the uitility functionality for reading
+This class implements the utility functionality for reading
 required amount of bits from a given input file for the purpose of encoding.
 
 The constructor reads the entire file to RAM and feeds the required amount
@@ -97,7 +97,7 @@ class file_bits_reader:
             self.f_obj.close()
 
 """
-This class implements the uitility functionality for writing
+This class implements the utility functionality for writing
 given data bits to a given output file for the purpose of decoding back.
 
 The close file function writes the buffer to the file.
